@@ -1,0 +1,5 @@
+play <music_genre>
+play some <music_genre>
+play <music_genre> music
+play <music_genre> songs
+
