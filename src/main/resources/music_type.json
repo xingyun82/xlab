@@ -1,0 +1,26 @@
+{
+  "en": {
+    "song": ["song", "songs"],
+    "album": ["album", "albums"],
+    "playlist": ["playlist"],
+    "music": ["music"]
+  },
+  "de": {
+    "song": ["song", "songs", "lied", "lieder", "gesang", "titel", "lieblingslied"],
+    "album": ["album", "alben"],
+    "playlist": ["playlist", "playlists", "wiedergabeliste", "spielliste"],
+    "music": ["musik", "titel"]
+  },
+  "fr": {
+    "song": ["chanson", "chansons"],
+    "album": ["album", "albums"],
+    "playlist": ["playlist"],
+    "music": ["musiques", "musique"]
+  },
+  "zh": {
+    "song": ["歌", "歌曲"],
+    "album": ["专辑"],
+    "playlist": ["歌单", "播放列表"],
+    "music": ["音乐"]
+  }
+}

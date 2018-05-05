@@ -1,4 +1,4 @@
-package csv;
+package xlab.csv;
 
 import com.google.common.collect.Sets;
 import com.opencsv.CSVReader;

@@ -1,4 +1,4 @@
-package csv;
+package xlab.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
