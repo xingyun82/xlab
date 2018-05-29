@@ -28,7 +28,7 @@ public class RE2Test {
     @Test
     public void test1() {
         long start = System.currentTimeMillis();
-        Matcher m = EnPatterns.EN_PATTERN_PLAY_RADIO_SHOW.matcher("latest episode of elton john's " + NameEntityTag.BEATS1_SHOW_NAME_TAG + " with kesha");
+        Matcher m = EnPatterns.EN_PATTERN_PLAY_RADIO_SHOW.matcher("the latest episode elton john's " + NameEntityTag.BEATS1_SHOW_NAME_TAG + " with kesha");
         boolean find = m.find();
         if (find) {
             System.out.println(find);

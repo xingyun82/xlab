@@ -14,7 +14,7 @@ public class FuseSearchTest {
 
     private static String LOCAL_ENDPOINT = "http://yunxing.scv.apple.com:9345/WebObjects/MZSearch.woa/wa/fuseSearch?";
     private static String PROD_ENDPOINT = "https://siri-search.itunes.apple.com/WebObjects/MZSearch.woa/1/wa/fuseSearch?";
-    private static String PROD_TEST_ENDPOINT = "http://itunes.isoproxy.apple.com/WebObjects/MZSearch.woa/107107/wa/fuseSearch?";
+    private static String PROD_TEST_ENDPOINT = "http://itunes.isoproxy.apple.com/WebObjects/MZSearch.woa/211000/wa/fuseSearch?";
     private static String SF_HEADER = "x-apple-store-front";
     private static String SF_US = "143441-1,21";
 
@@ -24,56 +24,56 @@ public class FuseSearchTest {
         return given().header(SF_HEADER, SF_US).get(endpoint + q);
     }
 
-//    @Test
-//    public void testSearchBeats1Show() {
-//        List<String> queryList = Arrays.asList(
-//            "q=rocket hour",
-//            "q=rocket hour on beats 1",
-//            "q=beats 1 with elton john",
-//            "q=elton john’s rocket hour",
-//            "q=rocket hour by elton john",
-//            "q=the latest episode of rocket hour",
-//            "q=rocket hour&type=radioShow",
-//            "q=elton john&type=radioShow"
-//        );
-//
-//        queryList.stream().forEach(q -> checkBeats1Show(search(q)));
-//    }
-//
-//    private void checkBeats1Show(Response response) {
-//        response.then()
-//                .body(
-//                    "status.code", equalTo(200),
-//                    "data[0].id", equalTo("993269779"),
-//                    "data[0].title", equalTo("Rocket Hour"),
-//                    "data[0].contentType", equalTo("radioShow"),
-//                    "data[0].showHost", equalTo("Elton John"),
-//                    "data[0].items", hasSize(1),
-//                    "data[0].items[0].showAdamId", equalTo("993269779")
-//                );
-//    }
-//
-//    @Test
-//    public void testSearchBeats1ShowEpisode() {
-//        List<String> queryList = Arrays.asList(
-//            "q=the latest episode of rocket hour with kesha",
-//            "q=rocket hour&filters=artist:kesha",
-//            "q=elton john’s rocket hour&filters=artist:kesha"
-//        );
-//
-//        queryList.stream().forEach(q -> checkBeats1ShowEpisode(search(q)));
-//    }
-//
-//    private void checkBeats1ShowEpisode(Response response) {
-//        response.then()
-//                .body(
-//                    "status.code", equalTo(200),
-//                    "data[0].id", equalTo("ra.1323016683"),
-//                        "data[0].title", equalTo("FaceTime with Kesha"),
-//                        "data[0].showAdamId", equalTo("993269779"),
-//                        "data[0].showName", equalTo("Rocket Hour")
-//                );
-//    }
+    @Test
+    public void testSearchBeats1Show() {
+        List<String> queryList = Arrays.asList(
+            "q=rocket hour",
+            "q=rocket hour on beats 1",
+            "q=beats 1 with elton john",
+            "q=elton john’s rocket hour",
+            "q=rocket hour by elton john",
+            "q=the latest episode of rocket hour",
+            "q=rocket hour&type=radioShow",
+            "q=elton john&type=radioShow"
+        );
+
+        queryList.stream().forEach(q -> checkBeats1Show(search(q)));
+    }
+
+    private void checkBeats1Show(Response response) {
+        response.then()
+                .body(
+                    "status.code", equalTo(200),
+                    "data[0].id", equalTo("993269779"),
+                    "data[0].title", equalTo("Rocket Hour"),
+                    "data[0].contentType", equalTo("radioShow"),
+                    "data[0].showHost", equalTo("Elton John"),
+                    "data[0].items", hasSize(1),
+                    "data[0].items[0].showAdamId", equalTo("993269779")
+                );
+    }
+
+    @Test
+    public void testSearchBeats1ShowEpisode() {
+        List<String> queryList = Arrays.asList(
+            "q=the latest episode of rocket hour with kesha",
+            "q=rocket hour&filters=artist:kesha",
+            "q=elton john’s rocket hour&filters=artist:kesha"
+        );
+
+        queryList.stream().forEach(q -> checkBeats1ShowEpisode(search(q)));
+    }
+
+    private void checkBeats1ShowEpisode(Response response) {
+        response.then()
+                .body(
+                    "status.code", equalTo(200),
+                    "data[0].id", equalTo("ra.1323016683"),
+                        "data[0].title", equalTo("FaceTime with Kesha"),
+                        "data[0].showAdamId", equalTo("993269779"),
+                        "data[0].showName", equalTo("Rocket Hour")
+                );
+    }
 
 
     @Test
@@ -164,7 +164,7 @@ public class FuseSearchTest {
                         "status.code", equalTo(200),
                         "data[0].artist", equalTo("Madonna"),
                         "data[0].artistId", equalTo("20044"),
-                        "data[0].id", equalTo("1047391733")
+                        "data[0].id", equalTo("1270186821")
                 );
     }
 
@@ -295,7 +295,7 @@ public class FuseSearchTest {
     }
 
     @Test
-    public void testAlbumCharts() {
+    public void testAlapplibumCharts() {
         List<String> queryList = Arrays.asList(
                 "topItemsGenre=Rock&type=album",
                 "topItemsGenre=Rock&type=album&sort=shuffle"
@@ -352,8 +352,8 @@ public class FuseSearchTest {
     public void testGetPodcastEpisode() {
         List<String> queryList = Arrays.asList(
                 "filters=podcast:\"this american life\"&type=podcastEpisode",
-                "filters=podcastId:201671138&type=podcastEpisode",
-                "q=This american life&type=podcastEpisode"
+                "filters=podcastId:201671138&type=podcastEpisode"
+//                "q=This american life&type=podcastEpisode"
         );
         queryList.stream().forEach(q -> checkPodcastEpisode(search(q)));
     }

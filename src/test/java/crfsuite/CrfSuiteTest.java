@@ -20,10 +20,15 @@ public class CrfSuiteTest {
     Pattern preTagPattern = Pattern.compile("(<(?<tag>[^>]+)>)*(?<word>[^\\s-]*)");
     Pattern sufTagPattern = Pattern.compile("(?<word>[^\\s-]*)(</(?<tag>[^>]+)>)");
 
-    public static String corpusFile = "/Users/yun_xing/Datasets/fr_corpus.txt";
-    public static String trainFile = "/Users/yun_xing/Datasets/fr_train.txt";
-    public static String modelFile = "/Users/yun_xing/Datasets/fr_model";
-    public static String testFile = "/Users/yun_xing/Datasets/fr_corpus.txt";
+//    public static String corpusFile = "/Users/yun_xing/Datasets/fr_corpus.txt";
+//    public static String trainFile = "/Users/yun_xing/Datasets/fr_train.txt";
+//    public static String modelFile = "/Users/yun_xing/Datasets/fr_model";
+//    public static String testFile = "/Users/yun_xing/Datasets/fr_corpus.txt";
+
+    public static String corpusFile = "/Users/yun_xing/Datasets/de_corpus.txt";
+    public static String trainFile = "/Users/yun_xing/Datasets/de_train.txt";
+    public static String modelFile = "/Users/yun_xing/Datasets/de_model";
+    public static String testFile = "/Users/yun_xing/Datasets/de_corpus.txt";
 
     public CrfTagger loadModel(String modelFile) {
         return new CrfTagger(modelFile);
@@ -148,7 +153,7 @@ public class CrfSuiteTest {
     // extract features from context
     // w-1, w0, w1
     // l-1, l0, l1
-    // w: text, length, isNumber, hasInternalPunc
+    // w: text, isNumber
 
     private List<String> extractFeatures(List<Pair<String, String>> tokenPairs, int i) {
         List<String> features = new ArrayList<>();
@@ -157,9 +162,9 @@ public class CrfSuiteTest {
         features.addAll(extractTokenFeatures(tokenPairs, i, 0));
         features.addAll(extractTokenFeatures(tokenPairs, i, 1));
         features.addAll(extractTokenFeatures(tokenPairs, i, 2));
-//        features.addAll(extractLabelFeatures(tokenPairs, i, -1));
-//        features.addAll(extractLabelFeatures(tokenPairs, i, 0));
-//        features.addAll(extractLabelFeatures(tokenPairs, i, 1));
+        features.addAll(extractLabelFeatures(tokenPairs, i, -1));
+        features.addAll(extractLabelFeatures(tokenPairs, i, 0));
+        features.addAll(extractLabelFeatures(tokenPairs, i, 1));
         return features;
     }
 
