@@ -1,0 +1,147 @@
+{
+    "slots": [
+        {
+            "id": "play_prefix",
+            "name": "PLAY_PREFIX",
+            "type": "enum",
+            "values": ["peux tu me", "tu peux me", "je voudrais", "fais moi", "je peux", "je veux"]
+        },
+        {
+            "id": "play",
+            "name": "PLAY",
+            "type": "enum",
+            "values": ["écouter", "écoute", "joue", "jouer", "mais", "mets", "mettre", "lance"]
+        },
+        {
+            "id": "pronoun",
+            "name": "PRONOUN",
+            "type": "enum",
+            "values": ["moi", "nous", "je", "tu", "il", "elle", "on", "vous", "ils", "elles"]
+        },
+        {
+            "id": "sort_type",
+            "name": "SORT_TYPE",
+            "type": "enum",
+            "values": ["chaud", "chaude", "chauds", "chaudes", "meilleur", "meilleure", "meilleurs", "meilleures",
+                "dernier", "dernière", "derniers", "dernières", "nouveau", "nouvel", "nouvelle", "nouveaux", "nouvelles",
+                "populaire", "populaire", "populaires", "populaires",
+                "aîné", "aînée", "aînés","aînées",
+                "pire", "pires"]
+        },
+        {
+            "id": "music_type",
+            "name": "MUSIC_TYPE",
+            "type": "enum",
+            "values": ["playlist", "album", "albums", "chanson", "chansons", "musiques", "musique", "radio", "radios" ],
+            "tagging": true
+        },
+        {
+            "id": "preposition",
+            "name": "PREPOSITION",
+            "type": "enum",
+            "values": ["à", "après", "avant", "avec", "chez", "contre", "dans", "de", "depuis", "derrière", "devant", "en", "entre", "envers", "environ", "par", "pendant", "pour", "sans", "sauf", "selon", "sous", "sur", "vers"]
+        },
+        {
+            "id": "article",
+            "name": "ARTICLE",
+            "type": "enum",
+            "values": ["le", "la", "l", "les", "du", "d", "de la", "de l", "des", "un", "une"]
+        },
+        {
+            "id": "artist_prefix",
+            "name": "ARTIST_PREFIX",
+            "type": "enum",
+            "values": ["groupe", "compositeur"]
+        },
+        {
+            "id": "time",
+            "name": "TIME",
+            "type": "enum",
+            "values": ["jour", "semaine", "mois", "année", "an"]
+        },
+        {
+            "id": "genre",
+            "name": "GENRE",
+            "type": "enum",
+            "values": ["rap", "pop", "rock", "classique", "hip hop", "jazz", "bleue", "folklorique", "country", "électronique", "froide"],
+            "tagging": true
+        },
+        {
+            "id": "artist",
+            "name": "ARTIST",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/fr/fr_artist.txt",
+            "tagging": true
+        },
+        {
+            "id": "music_samples",
+            "name": "MUSIC",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/fr/fr_music_samples.txt",
+            "tagging": true
+        },
+        {
+            "id": "suffix",
+            "name": "SUFFIX",
+            "type": "enum",
+            "values": ["qui est dans ma bibliothèque", "s il te plaît", "en aléatoire", "ce qu il me plaît"]
+        }
+    ],
+    "templates": [
+        {
+            "name": "T_PLAY",
+            "value": "{PLAY_PREFIX} {PLAY} | {PLAY}"
+        },
+        {
+            "name": "T_PLAY_ME",
+            "value": "<T_PLAY>? {PRONOUN}?"
+        },
+        {
+            "name": "T_MUSIC_TYPE",
+            "value": "{SORT_TYPE}? {GENRE}? {MUSIC_TYPE}"
+        },
+        {
+            "name": "T_MUSIC_PREFIX",
+            "value": "{ARTICLE} <T_MUSIC_TYPE>?"
+        },
+        {
+            "name": "T_ARTIST",
+            "value": "{ARTIST_PREFIX}? {ARTIST}"
+        },
+        {
+            "name": "T_DE",
+            "value": "de|du|d"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE> <T_DE> <T_ARTIST> {SUFFIX}?",
+            "isRule": true,
+            "description": "play music type by artist, e.g. Écouter la chanson de Johnny."
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_DE>? <T_ARTIST> {SUFFIX}?",
+            "isRule": true,
+            "description": "play artist, e.g. Joue du Damso."
+        },
+        {
+            "weight": 20,
+            "value": "<T_PLAY_ME>? musique {GENRE}",
+            "description": "play genre music, e.g. Écouter musique classique"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_MUSIC_PREFIX>? {MUSIC} {SUFFIX}?",
+            "description": "play music, e.g. Lance la chanson chocolat, Joue dans ma ruche"
+        },
+        {   "weight": 100,
+            "value": "<T_PLAY_ME>? <T_MUSIC_PREFIX>? {MUSIC} <T_DE> <T_ARTIST> {SUFFIX}?",
+            "description": "play music by artist, e.g. peux-tu mettre Laura de Johnny Hallyday"
+        },
+        {
+            "weight": 50,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE> <T_DE> {TIME} {SUFFIX}?",
+            "description": "play music type of a period, Écouter la chanson du jour"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+  "en": {
+    "hottest": ["hottest", "hot", "top"],
+    "newest": ["new", "newest"],
+    "popular": ["popular"],
+    "oldest": ["oldest"],
+    "wort": ["worst"]
+  },
+  "de": {
+    "hottest": ["heiß", "heißer", "heißesten", "heißer", "heiße", "heißes", "heißester", "heißeste", "heißestes"],
+    "newest": ["neu", "neuer", "neuesten", "neusten", "neuer", "neue", "neues", "neuester", "neuster",  "neueste", "neuste", "neuestes", "neustes"],
+    "popular": ["populär", "beliebt", "beliebter", "beliebtesten", "beliebte", "beliebtes", "beliebtester", "beliebteste", "beliebtestes"],
+    "oldest": [ "alt", "älter", "ältesten", "alter", "alte", "altes", "ältester", "älteste", "ältestes"],
+    "wort": ["schlecht", "schlechter", "schlechtesten", "schlechter",  "schlechte", "schlechtes", "schlechtester", "schlechteste", "schlechtestes"]
+  },
+  "fr": {
+    "hottest": ["chaud", "chaude", "chauds", "chaudes", "meilleur" "meilleure", "meilleurs", "meilleures"],
+    "newest": ["dernier", "dernière", "derniers", "dernières", "nouveau", "nouvel", "nouvelle", "nouveaux", "nouvelles"],
+    "popular": ["populaire", "populaire", "populaires", "populaires"],
+    "oldest": ["aîné", "aînée", "aînés","aînées"],
+    "wort": ["pire", "pires"]
+  },
+  "zh": {
+    "hottest": ["最热", "最好听", "好听"],
+    "newest": ["最新", "新"],
+    "popular": ["最流行"],
+    "oldest": ["最老", "最早"],
+    "wort": ["最糟糕","最差", "最难听"]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "slots": [
+    {
+      "id": "music_all",
+      "name": "MUSIC",
+      "type": "file_fst",
+      "source": "/opt/itms_bigdata/search/fuse/dictionary/current/all_song.fst",
+      "tagging": true
+    }
+  ]
+}

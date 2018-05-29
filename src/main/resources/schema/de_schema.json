@@ -1,0 +1,145 @@
+{
+    "slots": [
+        {
+            "id": "play_prefix",
+            "name": "PLAY_PREFIX",
+            "type": "enum",
+            "values": ["bitte", "ich möchte", "gerne", "kannst du"]
+        },
+        {
+            "id": "play",
+            "name": "PLAY",
+            "type": "enum",
+            "values": ["spiel", "spiele", "wiedergabe", "gehe auf", "höre", "hören", "abspielen", "aufspielen", "einsetzen", "mach", "machen"]
+        },
+        {
+            "id": "pronoun",
+            "name": "PRONOUN",
+            "type": "enum",
+            "values": ["mir", "meiner", "meine", "mich", "ich", "du", "dich", "dir", "deiner", "er", "ihn", "ihm", "seiner", "es", "sie", "ihr", "ihrer", "uns", "wir", "uns", "unser", "euch", "euer", "ihnen", "etwas", "was"]
+        },
+        {
+            "id": "sort_type",
+            "name": "SORT_TYPE",
+            "type": "enum",
+            "values": ["heiß", "heißer", "heißesten", "heißer", "heiße", "heißes", "heißester", "heißeste", "heißestes",
+                "neu", "neuer", "neuesten", "neusten", "neuer", "neue", "neues", "neuester", "neuster",  "neueste", "neuste", "neuestes", "neustes",
+                "populär", "beliebt", "beliebter", "beliebtesten", "beliebte", "beliebtes", "beliebtester", "beliebteste", "beliebtestes",
+                "alt", "älter", "ältesten", "alter", "alte", "altes", "ältester", "älteste", "ältestes",
+                "schlecht", "schlechter", "schlechtesten", "schlechter",  "schlechte", "schlechtes", "schlechtester", "schlechteste", "schlechtestes"],
+            "tagging": true
+        },
+        {
+            "id": "music_type",
+            "name": "MUSIC_TYPE",
+            "type": "enum",
+            "values": ["lied", "lieder", "musik", "titel",  "album", "alben", "wiedergabeliste", "spielliste", "radio", "radios", "lieblingslied", "song", "songs"],
+            "tagging": true
+        },
+        {
+            "id": "preposition",
+            "name": "PREPOSITION",
+            "type": "enum",
+            "values": ["bis", "aus", "während", "an", "durch", "außer", "trotz", "auf", "entlang", "bei", "statt", "anstatt", "hinter", "für", "mit", "wegen", "in", "gegen", "nach",
+                        "innerhalb", "neben", "ohne", "seit", "außerhalb", "über", "um", "von", "jenseits", "unter", "wider", "zu", "diesseits", "vor", "gegenüber", "unweit", "zwischen", "ab"]
+        },
+        {
+            "id": "article",
+            "name": "ARTICLE",
+            "type": "enum",
+            "values": ["ein", "eine", "einen", "einem", "einer", "eines", "der", "das", "die", "den", "dem", "alles", "alle", "aller"]
+        },
+        {
+            "id": "artist_prefix",
+            "name": "ARTIST_PREFIX",
+            "type": "enum",
+            "values": ["komponist", "band", "sängerin", "gruppe"]
+        },
+        {
+            "id": "time",
+            "name": "TIME",
+            "type": "enum",
+            "values": ["tag", "woche", "monat", "jahr", "heute"]
+        },
+        {
+            "id": "genre",
+            "name": "GENRE",
+            "type": "enum",
+            "values": ["pop", "rap", "rockmusik", "rock", "klassische", "hip hop", "jazz", "volksmusik", "volk", "volks", "elektronische", "klavier", "rockige"],
+            "tagging": true
+        },
+        {
+            "id": "artist",
+            "name": "ARTIST",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/de/de_artist.txt",
+            "tagging": true
+        },
+        {
+            "id": "music_samples",
+            "name": "MUSIC",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/de/de_music_samples.txt",
+            "tagging": true
+        },
+        {
+            "id": "suffix",
+            "name": "SUFFIX",
+            "type": "enum",
+            "values": ["spielen", "bitte", "hören", "für mich"]
+        }
+    ],
+    "templates": [
+        {
+            "name": "T_PLAY",
+            "value": "{PLAY_PREFIX} {PLAY}? | {PLAY}"
+        },
+        {
+            "name": "T_PLAY_ME",
+            "value": "<T_PLAY>? {PRONOUN}?"
+        },
+        {
+            "name": "T_MUSIC_TYPE",
+            "value": "{SORT_TYPE}? {GENRE}? {MUSIC_TYPE}"
+        },
+        {
+            "name": "T_ARTIST",
+            "value": "{ARTIST_PREFIX}? {ARTIST}"
+        },
+        {
+            "name": "T_OF",
+            "value": "von|der|des|die|den|das"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE> <T_OF>? <T_ARTIST> {SUFFIX}?",
+            "isRule": true,
+            "description": "play music type by artist"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_OF>? <T_ARTIST> {MUSIC_TYPE}? {PLAY}? {SUFFIX}?",
+            "isRule": true,
+            "description": "play artist"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE>? {MUSIC} {SUFFIX}?",
+            "description": "play music"
+        },
+        {   "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE>? {MUSIC} <T_OF>? <T_ARTIST> {SUFFIX}?",
+            "description": "play music by artist"
+        },
+        {
+            "weight": 50,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE> <T_OF>? {TIME} {SUFFIX}?",
+            "description": "play music of a period"
+        },
+        {
+            "weight": 50,
+            "value": "<T_PLAY_ME>? {ARTICLE}? {SORT_TYPE}? {GENRE} {MUSIC_TYPE} {SUFFIX}",
+            "description": "play genre"
+        }
+    ]
+}

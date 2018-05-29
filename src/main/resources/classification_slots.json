@@ -1,0 +1,20 @@
+{
+    "slots": [
+        "play_prefix",
+        "play",
+        "pronoun",
+        "sort_type",
+        "music_type",
+        "preposition",
+        "article",
+        "artist_prefix",
+        "time",
+        "genre",
+        "artist",
+        "music_all",
+        "suffix",
+        "measure",
+        "artist_action",
+        "artist_suffix"
+    ]
+}

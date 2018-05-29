@@ -1,0 +1,153 @@
+{
+    "slots": [
+        {
+            "id": "play_prefix",
+            "name": "PLAY_PREFIX",
+            "type": "enum",
+            "values": ["请", "要", "想"]
+        },
+        {
+            "id": "play",
+            "name": "PLAY",
+            "type": "enum",
+            "values": ["放", "播放", "来", "唱", "听"]
+        },
+        {
+            "id": "pronoun",
+            "name": "PRONOUN",
+            "type": "enum",
+            "values": []
+        },
+        {
+            "id": "sort_type",
+            "name": "SORT_TYPE",
+            "type": "enum",
+            "values": ["最热", "最好听", "好听", "最新", "新", "最流行", "最老", "最早", "最糟糕","最差", "最难听"],
+            "tagging": true
+        },
+        {
+            "id": "music_type",
+            "name": "MUSIC_TYPE",
+            "type": "enum",
+            "values": ["播放列表", "歌单", "专辑", "歌", "歌曲", "音乐", "电台"],
+            "tagging": true
+        },
+        {
+            "id": "preposition",
+            "name": "PREPOSITION",
+            "type": "enum",
+            "values": []
+        },
+        {
+            "id": "article",
+            "name": "ARTICLE",
+            "type": "enum",
+            "values": ["一", "那", "这"]
+        },
+	    {
+            "id": "measure",
+            "name": "MEASURE",
+            "type": "enum",
+            "values": ["段", "首", "张", "曲", "个"]
+	    },
+        {
+            "id": "artist_prefix",
+            "name": "ARTIST_PREFIX",
+            "type": "enum",
+            "values": ["歌手"]
+        },
+        {
+            "id": "artist_suffix",
+            "name": "ARTIST_SUFFIX",
+            "type": "enum",
+            "values": ["乐队", "组合"]
+        },
+        {
+            "id": "artist_action",
+            "name": "ARTIST_ACTION",
+            "type": "enum",
+            "values": ["唱", "作曲", "作词", "弹", "弹奏", "演奏"]
+        },
+        {
+            "id": "time",
+            "name": "TIME",
+            "type": "enum",
+            "values": ["今天", "本周", "本月", "今年"]
+        },
+        {
+            "id": "genre",
+            "name": "GENRE",
+            "type": "enum",
+            "values": ["rap", "流行音乐", "rock", "classical", "hip hop", "爵士乐", "民谣", "乡村音乐", "电音"],
+            "tagging": true
+        },
+        {
+            "id": "artist",
+            "name": "ARTIST",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/zh/zh_artist.txt",
+            "tagging": true
+        },
+        {
+            "id": "music_samples",
+            "name": "MUSIC",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/zh/zh_music_samples.txt",
+            "tagging": true
+        },
+        {
+            "id": "suffix",
+            "name": "SUFFIX",
+            "type": "enum",
+            "values": ["谢谢", "吧"]
+        }
+    ],
+     "templates": [
+        {
+            "name": "T_ARTICLE_BEFORE",
+            "value": "{ARTICLE} {MEASURE} | {MEASURE}"
+        },
+        {
+            "name": "T_ARTICLE_AFTER",
+            "value": "{ARTICLE} {MEASURE}"
+        },
+        {
+            "name": "T_PLAY",
+            "value": "{PLAY_PREFIX} {PLAY} | {PLAY}"
+        },
+        {
+            "name": "T_ARTIST",
+            "value": "{ARTIST_PREFIX}? {ARTIST} | {ARTIST} {ARTIST_SUFFIX}?"
+        },
+        {
+            "name": "T_MUSIC_TYPE",
+            "value": "{SORT_TYPE} (的)? {MUSIC_TYPE} | {MUSIC_TYPE}"
+        },
+        {
+            "name": "U_PLAY_MUSIC_TYPE_BY_ARTIST",
+            "weight": 100,
+            "value": "<T_PLAY>? <T_ARTICLE_BEFORE>? <T_ARTIST> (的)? <T_MUSIC_TYPE> {SUFFIX}?",
+            "isRule": true,
+            "description": "play music type by artist, e.g. 来一首歌手张学友的最新歌曲"
+        },
+        {
+            "name": "U_PLAY_MUSIC_TYPE_BY_ARTIST_2",
+            "weight": 100,
+            "value": "<T_PLAY>? <T_ARTIST> (的) <T_ARTICLE_AFTER>? <T_MUSIC_TYPE> {SUFFIX}?",
+            "isRule": true,
+            "description": "play music type by artist 2, e.g. 放歌手张学友的一首最新的歌"
+        },
+	    {
+	        "name": "U_PLAY_MUSIC_BY_ARTIST",
+            "weight": 100,
+            "value": "<T_PLAY>? <T_ARTIST> (的)? <T_ARTICLE_AFTER>? {MUSIC} {SUFFIX}?",
+            "description": "play music by artist, e.g. 放歌手张学友的那首吻别"
+        },
+	    {
+	        "name": "U_PLAY_MUSIC",
+            "weight": 100,
+            "value": "<T_PLAY>? <T_ARTICLE_BEFORE>? {MUSIC} {SUFFIX}?",
+            "description": "play music, e.g. 来一首吻别"
+        }
+    ]
+}

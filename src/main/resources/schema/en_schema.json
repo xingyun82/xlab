@@ -1,0 +1,149 @@
+{
+    "slots": [
+        {
+            "id": "play_prefix",
+            "name": "PLAY_PREFIX",
+            "type": "enum",
+            "values": []
+        },
+        {
+            "id": "play",
+            "name": "PLAY",
+            "type": "enum",
+            "values": ["play"]
+        },
+        {
+            "id": "pronoun",
+            "name": "PRONOUN",
+            "type": "enum",
+            "values": ["me", "my"]
+        },
+        {
+            "id": "sort_type",
+            "name": "SORT_TYPE",
+            "type": "enum",
+            "values": ["newest", "new", "latest", "oldest", "popular", "top",  "hot", "hottest"],
+            "tagging": true
+        },
+        {
+            "id": "music_type",
+            "name": "MUSIC_TYPE",
+            "type": "enum",
+            "values": ["playlist", "album", "albums", "song", "songs", "music", "radio", "radios", "radio station"],
+            "tagging": true
+        },
+        {
+            "id": "preposition",
+            "name": "PREPOSITION",
+            "type": "enum",
+            "values": ["by", "of", "from"]
+        },
+        {
+            "id": "article",
+            "name": "ARTICLE",
+            "type": "enum",
+            "values": ["a", "an", "one", "the", "this", "some"]
+        },
+        {
+            "id": "artist_prefix",
+            "name": "ARTIST_PREFIX",
+            "type": "enum",
+            "values": ["band", "writer", "compositor", "group", "artist", "singer"]
+        },
+        {
+            "id": "time",
+            "name": "TIME",
+            "type": "enum",
+            "values": ["day", "week", "month", "year"]
+        },
+        {
+            "id": "genre",
+            "name": "GENRE",
+            "type": "enum",
+            "values": ["rap", "pop", "rock", "classical", "hip hop", "jazz", "blue", "folk", "country", "electrical", "meditation", "chill"],
+            "tagging": true
+        },
+        {
+            "id": "artist",
+            "name": "ARTIST",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/en/en_artist.txt",
+            "tagging": true
+        },
+        {
+            "id": "music_samples",
+            "name": "MUSIC",
+            "type": "file_enum",
+            "source": "/opt/itms_bigdata/search/fuse/dictionary/current/en/en_music_samples.txt",
+            "tagging": true
+        },
+        {
+            "id": "suffix",
+            "id": "suffix",
+            "name": "SUFFIX",
+            "type": "enum",
+            "values": ["please", "thanks", "for me"]
+        }
+    ],
+    "templates": [
+        {
+            "name": "T_PLAY",
+            "value": "{PLAY_PREFIX} {PLAY} | {PLAY}"
+        },
+        {
+            "name": "T_PLAY_ME",
+            "value": "<T_PLAY>? {PRONOUN}?"
+        },
+        {
+            "name": "T_MUSIC_TYPE",
+            "value": "{SORT_TYPE}? {GENRE}? {MUSIC_TYPE}"
+        },
+        {
+            "name": "T_ARTIST",
+            "value": "{ARTIST_PREFIX}? {ARTIST}"
+        },
+        {
+            "name": "U_PLAY_MUSIC_TYPE_BY_ARTIST",
+            "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE> {PREPOSITION} <T_ARTIST> {SUFFIX}?",
+            "isRule": true,
+            "description": "play music type by artist, e.g. play a popular song by singer taylor swift."
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_ARTIST> (s)? <T_MUSIC_TYPE> {SUFFIX}?",
+            "isRule": true,
+            "description": "play artist's music type, e.g. play taylor swift's song"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_ARTIST> (s)? <T_MUSIC_TYPE>? {MUSIC} {SUFFIX}?",
+            "description": "play artist's music, e.g. play taylor swift's song shake it off"
+        },
+        {
+            "weight": 50,
+            "value": "<T_PLAY_ME>? {ARTICLE}? {SORT_TYPE}? {GENRE} {MUSIC_TYPE}?",
+            "description": "play genre, e.g. play pop song"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? <T_ARTIST> {SUFFIX}?",
+            "isRule": true,
+            "description": "play artist, e.g. play taylor swift"
+        },
+        {
+            "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE>? {MUSIC} {SUFFIX}?",
+            "description": "play music, e.g. play the song shake it off"
+        },
+        {   "weight": 100,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE>? {MUSIC} {PREPOSITION} <T_ARTIST> {SUFFIX}?",
+            "description": "play music by artist, e.g. play the song shake it off by taylor swift"
+        },
+        {
+            "weight": 20,
+            "value": "<T_PLAY_ME>? {ARTICLE}? <T_MUSIC_TYPE>? of {ARTICLE}? {TIME} {SUFFIX}?",
+            "description": "play music of a period, e.g. play the popular songs of this week"
+        }
+    ]
+}
